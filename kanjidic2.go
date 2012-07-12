@@ -1,8 +1,7 @@
-package main
+package kanjidic2
 
 import (
 	"encoding/xml"
-	"fmt"
 	"log"
 	"os"
 )
@@ -82,11 +81,4 @@ func ParseKanjiDic2(filename string) (kanjiList []Kanji) {
 		}
 	}
 	return
-}
-
-func main() {
-	kanjidic := ParseKanjiDic2("/Users/shawn/Downloads/kanjidic2.xml")
-	for _, kanji := range kanjidic {
-		fmt.Println(kanji.Variant)
-	}
 }
