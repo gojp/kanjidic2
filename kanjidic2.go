@@ -64,7 +64,6 @@ func ParseKanjiDic2(filename string) (kanjiList []Kanji) {
 	}
 	defer xmlFile.Close()
 	decoder := xml.NewDecoder(xmlFile)
-	total := 0
 	for {
 		token, _ := decoder.Token()
 		if token == nil {
@@ -76,7 +75,6 @@ func ParseKanjiDic2(filename string) (kanjiList []Kanji) {
 				var kanji Kanji
 				decoder.DecodeElement(&kanji, &startElement)
 				kanjiList = append(kanjiList, kanji)
-				total++
 			}
 		}
 	}
