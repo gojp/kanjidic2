@@ -7,7 +7,7 @@ import (
 var numKanji = 13108
 
 func TestParser(t *testing.T) {
-	got, err := ParseKanjiDic2("/Users/shawn/Downloads/kanjidic2.xml")
+	got, err := ParseKanjiDic2("kanjidic2.xml")
 	if err != nil {
 		t.Fatalf("ParseKanjiDic2: %v", err)
 	}
