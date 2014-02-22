@@ -1,3 +1,5 @@
 before_script:
   - ./setup.sh
 language: go
+go:
+  - 1.2
