@@ -2,8 +2,22 @@ package kanjidic2
 
 import (
 	"encoding/xml"
+	"log"
 	"os"
+	"strconv"
 )
+
+// for ,innerxml to unmarshal into ints instead of strings
+type IntString string
+
+func (f *IntString) UnmarshalXML(i interface{}) int64 {
+	s := i.(string)
+	n, err := strconv.ParseInt(s, 10, 0)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return n
+}
 
 type Reading struct {
 	RType string `xml:"r_type,attr"`
@@ -16,8 +30,8 @@ type Meaning struct {
 }
 
 type DicRef struct {
-	DrType string `xml:"dr_type,attr"`
-	Value  string `xml:",innerxml"`
+	DrType string    `xml:"dr_type,attr"`
+	Value  IntString `xml:",innerxml"`
 }
 
 type CpValue struct {
@@ -26,8 +40,8 @@ type CpValue struct {
 }
 
 type RadValue struct {
-	RadType string `xml:"rad_type,attr"`
-	Value   int    `xml:",innerxml"`
+	RadType string    `xml:"rad_type,attr"`
+	Value   IntString `xml:",innerxml"`
 }
 
 type Variant struct {
