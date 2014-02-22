@@ -2,7 +2,6 @@ package kanjidic2
 
 import (
 	"encoding/xml"
-	"log"
 	"os"
 )
 
@@ -57,10 +56,10 @@ type Kanji struct {
 	Nanori      []string   `xml:"nanori"`
 }
 
-func ParseKanjiDic2(filename string) (kanjiList []Kanji) {
+func ParseKanjiDic2(filename string) (kanjiList []Kanji, err error) {
 	xmlFile, err := os.Open(filename)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	defer xmlFile.Close()
 	decoder := xml.NewDecoder(xmlFile)
