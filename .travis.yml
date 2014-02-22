@@ -1,2 +1,3 @@
 before_script:
   - setup.sh
+language: go
