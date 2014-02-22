@@ -1,3 +1,3 @@
 before_script:
-  - setup.sh
+  - ./setup.sh
 language: go
