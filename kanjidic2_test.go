@@ -1,11 +1,9 @@
 package kanjidic2
 
-import (
-	"testing"
-)
+import "testing"
 
 var numKanji = 13108
-var kanjiList []Kanji
+var kanjidic2Parser Kanjidic2Parser
 
 func TestParser(t *testing.T) {
 	got, err := ParseKanjiDic2("kanjidic2.xml")
@@ -16,14 +14,14 @@ func TestParser(t *testing.T) {
 		t.Fatalf("ParseKanjiDic2 length incorrect: got %d, want %d", got, numKanji)
 	}
 	// set kanjiList for later tests
-	kanjiList = got
+	kanjidic2Parser = got
 }
 
 var strokeCountTests = []struct {
 	Literal string
 	Count   int
 }{
-	{"ー", 1},
+	{"一", 1},
 	{"二", 2},
 	{"三", 3},
 	{"中", 4},
@@ -33,13 +31,9 @@ var strokeCountTests = []struct {
 }
 
 func TestStrokeCount(t *testing.T) {
-	for _, k := range kanjiList {
-		for _, tt := range strokeCountTests {
-			if k.Literal == tt.Literal {
-				if got := k.StrokeCount; got != tt.Count {
-					t.Errorf("TestStrokeCount (%s): got %d, want %d", tt.Literal, got, tt.Count)
-				}
-			}
+	for _, tt := range strokeCountTests {
+		if got := kanjidic2Parser[tt.Literal].StrokeCount; got != tt.Count {
+			t.Errorf("TestStrokeCount (%s): got %d, want %d", tt.Literal, got, tt.Count)
 		}
 	}
 }

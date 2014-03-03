@@ -70,10 +70,13 @@ type Kanji struct {
 	Nanori      []string   `xml:"nanori"`
 }
 
-func ParseKanjiDic2(filename string) (kanjiList []Kanji, err error) {
+type Kanjidic2Parser map[string]Kanji
+
+func ParseKanjiDic2(filename string) (Kanjidic2Parser, error) {
+	k := Kanjidic2Parser{}
 	xmlFile, err := os.Open(filename)
 	if err != nil {
-		return nil, err
+		return k, err
 	}
 	defer xmlFile.Close()
 	decoder := xml.NewDecoder(xmlFile)
@@ -87,9 +90,9 @@ func ParseKanjiDic2(filename string) (kanjiList []Kanji, err error) {
 			if startElement.Name.Local == "character" {
 				var kanji Kanji
 				decoder.DecodeElement(&kanji, &startElement)
-				kanjiList = append(kanjiList, kanji)
+				k[kanji.Literal] = kanji
 			}
 		}
 	}
-	return
+	return k, nil
 }
