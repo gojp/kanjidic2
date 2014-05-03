@@ -11,7 +11,7 @@ func TestParser(t *testing.T) {
 		t.Fatalf("ParseKanjiDic2: %v", err)
 	}
 	if len(got) != numKanji {
-		t.Fatalf("ParseKanjiDic2 length incorrect: got %d, want %d", got, numKanji)
+		t.Fatalf("ParseKanjiDic2 length incorrect: got %d, want %d", len(got), numKanji)
 	}
 	// set kanjiList for later tests
 	kanjidic2Parser = got
