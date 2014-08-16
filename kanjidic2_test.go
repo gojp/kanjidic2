@@ -2,8 +2,10 @@ package kanjidic2
 
 import "testing"
 
-var numKanji = 13108
-var kanjidic2Parser Kanjidic2Parser
+var (
+	numKanji        = 13108
+	kanjidic2Parser Kanjidic2Parser
+)
 
 func TestParser(t *testing.T) {
 	got, err := ParseKanjiDic2("kanjidic2.xml")
@@ -18,8 +20,8 @@ func TestParser(t *testing.T) {
 }
 
 var strokeCountTests = []struct {
-	Literal string
-	Count   int
+	literal string
+	want    int
 }{
 	{"一", 1},
 	{"二", 2},
@@ -32,8 +34,8 @@ var strokeCountTests = []struct {
 
 func TestStrokeCount(t *testing.T) {
 	for _, tt := range strokeCountTests {
-		if got := kanjidic2Parser[tt.Literal].StrokeCount; got != tt.Count {
-			t.Errorf("TestStrokeCount (%s): got %d, want %d", tt.Literal, got, tt.Count)
+		if got := kanjidic2Parser[tt.literal].StrokeCount; got != tt.want {
+			t.Errorf("TestStrokeCount (%s): got %d, want %d", tt.literal, got, tt.want)
 		}
 	}
 }
